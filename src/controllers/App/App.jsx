@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
-import { Header, Footer } from '../../components';
+import { Header, Footer, Loader, Notification } from '../../components';
+import { Fetch } from '../../services/api';
+
+const FETCH_OPTIONS = {
+    method: 'GET',
+    headers: {}
+};
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header logo="https://www.accenture.com/t20180820T081710Z__w__/us-en/_acnmedia/Accenture/Dev/Redesign/Acc_Logo_Black_Purple_RGB.PNG"/>
-        <p className="Main">
-          Main content
-        </p>
-        <Footer/>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <Fetch path={'general'} options={FETCH_OPTIONS}>
+                    {({ data, loading, error }) => {
+                        if (error) {
+                            return <Notification type="error" message={error.message} />;
+                        }
+                        if (loading) {
+                            return <Loader />;
+                        }
+                        if (data && data.logo) {
+                            return <Header logo={data.logo} />;
+                        }
+                        return <Loader />;
+                    }}
+                </Fetch>
+                <p className="Main">Main content</p>
+                <Footer />
+            </div>
+        );
+    }
 }
 
 export default App;
