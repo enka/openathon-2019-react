@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
-import { Header, Footer, Loader, Notification } from '../../components';
-import { Fetch } from '../../services/api';
-
-const FETCH_OPTIONS = {
-    method: 'GET',
-    headers: {}
-};
+import { BrowserRouter } from 'react-router-dom';
+import { Header, Footer } from '../../components';
+import { Main } from '../../containers';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <Fetch path={'general'} options={FETCH_OPTIONS}>
-                    {({ data, loading, error }) => {
-                        if (error) {
-                            return <Notification type="error" message={error.message} />;
-                        }
-                        if (loading) {
-                            return <Loader />;
-                        }
-                        if (data && data.logo) {
-                            return <Header logo={data.logo} />;
-                        }
-                        return <Loader />;
-                    }}
-                </Fetch>
-                <p className="Main">Main content</p>
-                <Footer />
+                <BrowserRouter>
+                    <div className="App__root">
+                        <Header />
+                        <Main />
+                        <Footer />
+                    </div>
+                </BrowserRouter>
             </div>
         );
     }
