@@ -9,20 +9,28 @@ class Header extends React.Component {
             <div className="Header">
                 <div className="Header__logo">
                     {
-                        <Get url="general" fetchAfterMount>
-                            {({ data, loading, error }) => {
-                                if (error) {
-                                    return <Notification type="error" message={error.message} />;
-                                }
-                                if (loading) {
-                                    return <Loader />;
-                                }
-                                if (data && data.logo) {
-                                    return <img alt="Accenture Logo" src={data.logo} />;
-                                }
+                    <Get url="general" fetchAfterMount>
+                        {({ data, loading, error }) => {
+                            if (error) {
+                                return (
+                                    <Notification type="error"
+                                        message= {error.message}
+                                    />
+                                );
+                            }
+                            if (loading) {
                                 return <Loader />;
-                            }}
-                        </Get>
+                            }
+                            if (data && data.logo) {
+                                return (
+                                    <img alt="Accenture Logo"
+                                        src={data.logo}
+                                    />
+                                );
+                            }
+                            return <Loader />;
+                        }}
+                    </Get>
                     }
                 </div>
                 <h1 className="Header__title">II OPENATHON Custom Open Cloud</h1>

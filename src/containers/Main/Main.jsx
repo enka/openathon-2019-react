@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
-import { Home, NotFound, Services, Innovation, Guestbook } from "../../containers";
+import { Home, Services, Innovation, Guestbook, NotFound } from "../../containers";
 import './Main.css';
 
 class Main extends React.Component {

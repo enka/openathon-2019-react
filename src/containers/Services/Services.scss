@@ -1,22 +1,26 @@
-.Services {
-    .Services__header {
+@import 'assets/styles/common/variables';
+
+.Services{
+
+    .Services__header{
         text-align: left;
     }
 
-    .Services__content {
+    .Services__content{
         display: flex;
 
-        .Services__list {
+        .Services__list{
             flex-basis: 25%;
             max-width: 25%;
 
             .List .ListBasic {
-                .ListBasic--list {
-                    .ListBasic__image {
+
+                .ListBasic--list{
+                    .ListBasic__image{
                         flex-basis: 100%;
                         text-align: left;
 
-                        img {
+                        img{
                             width: auto;
                             height: 50px;
                         }
@@ -25,7 +29,7 @@
             }
         }
 
-        .Services__detail {
+        .Services__detail{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -35,11 +39,12 @@
             padding: $space-m;
             background-color: rgba($light-gray-alt, 0.5);
 
-            &--empty {
-                p {
+            &--empty{
+                p{
                     font-size: 24px;
                 }
             }
         }
     }
+
 }

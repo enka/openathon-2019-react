@@ -15,25 +15,25 @@ class Info extends React.PureComponent {
                     <h1>{this.props.title}</h1>
                 </header>
                 <section className="Info__content">
-                    {Object.keys(this.props.data).map((field) => {
-                        let infoContent;
-                        if (field === 'link') {
-                            infoContent = (
-                                <p key={`general-${field}`}
-                                    className={`Info__${field}`}>
-                                    <a href="{this.props.data[field]}">Visit our website</a>
-                                </p>
-                            );
-                        } else if (field !== 'logo') {
-                            infoContent = (
-                                <p key={`general-${field}`}
-                                    className={`Info__${field}`}>
-                                    {this.props.data[field]}
-                                </p>
-                            );
-                        }
-                        return infoContent;
-                    })}
+                {Object.keys(this.props.data).map((field) => {
+                    let infoContent;
+                    if (field === 'link') {
+                        infoContent = (
+                            <p key={`general-${field}`}
+                                className={`Info__${field}`}>
+                                <a href="{this.props.data[field]}">Visit our website</a>
+                            </p>
+                        );
+                    } else if (field !== 'logo') {
+                        infoContent = (
+                            <p key={`general-${field}`}
+                                className={`Info__${field}`}>
+                                {this.props.data[field]}
+                            </p>
+                        );
+                    }
+                    return infoContent;
+                })}
                 </section>
             </article>
         );

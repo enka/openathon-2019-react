@@ -8,11 +8,11 @@ const defaultProps = {
 class Footer extends React.PureComponent {
     render() {
         return (
-        <div className="Footer">
-            <p className="Footer__info">
-                {this.props.footerInfo}
-            </p>
-        </div>
+            <div className="Footer">
+                <p className="Footer__info">
+                    {this.props.footerInfo}
+                </p>
+            </div>
         );
     }
 }

@@ -11,13 +11,19 @@ class Home extends React.Component {
                     <Get url="general" method="get" fetchAfterMount>
                         {({ data, loading, error }) => {
                             if (error) {
-                                return <Notification type="error" message={error.message} />;
+                                return (
+                                    <Notification type="error"
+                                        message= {error.message}
+                                    />
+                                );
                             }
                             if (loading) {
                                 return <Loader />;
                             }
                             if (data) {
-                                return <Info title="About Accenture" data={data} />;
+                                return (
+                                    <Info title="About Accenture" data={data} />
+                                );
                             }
                             return <Loader />;
                         }}
@@ -28,15 +34,18 @@ class Home extends React.Component {
                         <Get url="services" fetchAfterMount>
                             {({ data, loading, error }) => {
                                 if (error) {
-                                    return <Notification type="error" message={error.message} />;
+                                    return (
+                                        <Notification type="error"
+                                            message= {error.message}
+                                        />
+                                    );
                                 }
                                 if (loading) {
                                     return <Loader />;
                                 }
                                 if (data) {
                                     return (
-                                        <ListBasic
-                                            title="Services"
+                                        <ListBasic title="Services"
                                             data={data}
                                             fields={['name', 'description', 'image', 'internal_link']}
                                         />
@@ -50,14 +59,22 @@ class Home extends React.Component {
                         <Get url="innovation" fetchAfterMount>
                             {({ data, loading, error }) => {
                                 if (error) {
-                                    return <Notification type="error" message={error.message} />;
+                                    return (
+                                        <Notification type="error"
+                                            message= {error.message}
+                                        />
+                                    );
                                 }
                                 if (loading) {
                                     return <Loader />;
                                 }
                                 if (data) {
                                     return (
-                                        <ListBasic title="Innovation" data={data} fields={['image']} layout="grid" />
+                                        <ListBasic title="Innovation"
+                                            data={data}
+                                            fields={['image']}
+                                            layout="grid"
+                                        />
                                     );
                                 }
                                 return <Loader />;
