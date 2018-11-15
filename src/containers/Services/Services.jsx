@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ListBasic, ListItemDetail, Loader, Notification } from '../../components';
-import { Fetch } from '../../services/api';
+import { Get } from '../../services/api';
 import './Services.css';
 
 class Services extends React.Component {
@@ -13,7 +13,7 @@ class Services extends React.Component {
                     <h1>Services</h1>
                 </header>
                 <div className="Services__container">
-                    <Fetch url="services" method="get">
+                    <Get url="services" fetchAfterMount>
                         {({ data, loading, error }) => {
                             if (error) {
                                 return <Notification type="error" message={error.message} />;
@@ -71,7 +71,7 @@ class Services extends React.Component {
                             }
                             return <Loader />;
                         }}
-                    </Fetch>
+                    </Get>
                 </div>
             </div>
         );
