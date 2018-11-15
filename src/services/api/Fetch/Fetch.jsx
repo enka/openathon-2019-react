@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 const defaultProps = {
-    fetchAfterMount: true,
+    fetchAfterMount: false,
     url: null,
     method: 'get',
     baseURL: 'http://localhost:3001/',
@@ -20,35 +20,57 @@ class Fetch extends React.Component {
             loading: false,
             error: null
         };
+        this.fetchData = this.fetchData.bind(this);
+        this.getRequestConfig = this.getRequestConfig.bind(this);
+        this.onReload = this.onReload.bind(this);
     }
 
-    fetchData = async () => {
-        this.setState({ loading: true });
-        const { children, fetchAfterMount, ...requestConfig } = this.props;
-        try {
-            const response = await axios(requestConfig);
-            this.setState({ data: response.data, loading: false });
-        } catch (error) {
-            this.setState({ error, loading: false });
+    fetchData = async props => {
+        if (this._isMounted) {
+            this.setState({ loading: true });
+            try {
+                const response = await axios(this.getRequestConfig(props));
+                this.setState({ data: response.data, loading: false });
+            } catch (error) {
+                this.setState({ error, loading: false });
+            }
         }
     };
 
+    getRequestConfig(props) {
+        return Object.assign(
+            { baseURL: props.baseURL, url: props.url, method: props.method, data: props.data, params: props.params },
+            props.config
+        );
+    }
+
+    onReload(props) {
+        if (!this.state.loading) {
+            this.fetchData(this.getRequestConfig(props ? Object.assign({}, this.props, props) : this.props));
+        }
+    }
+
     componentDidMount() {
-        if (this.props.fetchAfterMount) this.fetchData();
+        this._isMounted = true;
+        if (this.props.fetchAfterMount) this.fetchData(this.getRequestConfig(this.props));
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {
         const {
             state: { data, loading, error },
             props: { children },
-            fetchData
+            onReload
         } = this;
 
         return children({
             data,
             loading,
             error,
-            fetchData
+            onReload
         });
     }
 }
