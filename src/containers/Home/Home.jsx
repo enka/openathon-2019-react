@@ -13,7 +13,7 @@ class Home extends React.Component {
         return (
             <div className="Home" location={this.props.location}>
                 <div className="Home__info">
-                    <Fetch path={'general'} options={FETCH_OPTIONS}>
+                    <Fetch url="general" method="get">
                         {({ data, loading, error }) => {
                             if (error) {
                                 return <Notification type="error" message={error.message} />;
@@ -30,7 +30,7 @@ class Home extends React.Component {
                 </div>
                 <div className="Home__list">
                     <div className="Home__services">
-                        <Fetch path={'services'} options={FETCH_OPTIONS}>
+                        <Fetch url="services" method="get">
                             {({ data, loading, error }) => {
                                 if (error) {
                                     return <Notification type="error" message={error.message} />;
@@ -47,7 +47,7 @@ class Home extends React.Component {
                     </div>
                 </div>
                 <div className="Home__innovation">
-                    <Fetch path={'innovation'} options={FETCH_OPTIONS}>
+                    <Fetch url="innovation" method="get">
                         {({ data, loading, error }) => {
                             if (error) {
                                 return <Notification type="error" message={error.message} />;
