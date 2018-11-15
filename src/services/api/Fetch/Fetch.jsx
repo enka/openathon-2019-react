@@ -1,11 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
-const API_HOST = 'http://localhost:3001/';
+const defaultProps = {
+    fetchAfterMount: true,
+    url: null,
+    method: 'get',
+    baseURL: 'http://localhost:3001/',
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+    }
+};
 
 class Fetch extends React.Component {
-
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             data: null,
@@ -14,23 +22,41 @@ class Fetch extends React.Component {
         };
     }
 
-    fetchData = async() => {
+    fetchData = async () => {
         this.setState({ loading: true });
+        const { children, fetchAfterMount, ...requestConfig } = this.props;
         try {
-            const response = await axios.get(`${API_HOST}${this.props.path}`, this.props.options);
-            this.setState({ data: response.data, loading: false});
+            const response = await axios(requestConfig);
+            this.setState({ data: response.data, loading: false });
         } catch (error) {
-            this.setState({ error, loading: false});
+            this.setState({ error, loading: false });
         }
-    }
-    
+    };
+
     componentDidMount() {
-        this.fetchData();
+        if (this.props.fetchAfterMount) this.fetchData();
     }
 
     render() {
-        return this.props.children(this.state);
+        const {
+            state: { data, loading, error },
+            props: { children },
+            fetchData
+        } = this;
+
+        return children({
+            data,
+            loading,
+            error,
+            fetchData
+        });
     }
 }
+
+Fetch.defaultProps = defaultProps;
+
+Fetch.propTypes = {
+    url: PropTypes.string.isRequired
+};
 
 export default Fetch;

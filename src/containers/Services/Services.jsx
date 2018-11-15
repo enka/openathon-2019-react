@@ -4,11 +4,6 @@ import { ListBasic, ListItemDetail, Loader, Notification } from '../../component
 import { Fetch } from '../../services/api';
 import './Services.css';
 
-const FETCH_OPTIONS = {
-    method: 'GET',
-    headers: {}
-};
-
 class Services extends React.Component {
     render() {
         const match = this.props.match;
@@ -18,7 +13,7 @@ class Services extends React.Component {
                     <h1>Services</h1>
                 </header>
                 <div className="Services__container">
-                    <Fetch path="services" options={FETCH_OPTIONS}>
+                    <Fetch url="services" method="get">
                         {({ data, loading, error }) => {
                             if (error) {
                                 return <Notification type="error" message={error.message} />;

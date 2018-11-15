@@ -18,7 +18,7 @@ class Innovation extends React.Component {
                     <h1>Innovation</h1>
                 </header>
                 <section className="Innovation__container">
-                    <Fetch path="innovation" options={FETCH_OPTIONS}>
+                    <Fetch url="innovation" method="get">
                         {({ data, loading, error }) => {
                             if (error) {
                                 return <Notification type="error" message={error.message} />;
