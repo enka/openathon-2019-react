@@ -6,6 +6,7 @@ import Loader from './Loader/Loader';
 import Notification from './Notification/Notification';
 import ListBasic from './ListBasic/ListBasic';
 import ListItemDetail from './ListItemDetail/ListItemDetail';
+import Form from './Form/Form';
 
 export {
     Header,
@@ -15,5 +16,6 @@ export {
     Loader,
     Notification,
     ListBasic,
-    ListItemDetail
+    ListItemDetail,
+    Form
 };
