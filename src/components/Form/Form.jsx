@@ -18,9 +18,32 @@ class Form extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {}
+    handleChange(event) {
+        const updatedFields = this.state.fields.map(field => {
+            if (field.id === event.target.id) return Object.assign({}, field, { value: event.target.value });
+            return field;
+        });
+        this.setState({ fields: updatedFields });
+    }
 
-    handleSubmit(event) {}
+    handleSubmit(event) {
+        event.preventDefault();
+        if (this.props.submitForm && {}.toString.call(this.props.submitForm) === '[object Function]') {
+            const entry = {};
+            this.state.fields.map(field => (entry[field.metadata.label] = field.value));
+            this.props.submitForm(entry);
+        } else {
+            const formValues = this.state.fields.reduce((result, field) => {
+                result += `${field.metadata.label.toLowerCase()}: ${field.value}\n`;
+                return result;
+            }, '');
+            alert('A new form was submitted\n' + formValues);
+        }
+        const resetFields = this.state.fields.map(field => {
+            return Object.assign({}, field, { value: '' });
+        });
+        this.setState({ fields: resetFields });
+    }
 
     render() {
         return (

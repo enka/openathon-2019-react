@@ -11,7 +11,11 @@ class Guestbook extends React.Component {
         this.submitForm = this.submitForm.bind(this);
     }
 
-    submitForm(newEntry) {}
+    submitForm(newEntry) {
+        const entries = this.state.entries;
+        entries.push(newEntry);
+        this.setState({ entries });
+    }
 
     render() {
         return (
@@ -20,7 +24,29 @@ class Guestbook extends React.Component {
                     <h1>Guestbook</h1>
                 </header>
                 <section className="Guestbook__content">
-                    <Form className="Guestbook__form" title="Guestbook Form" />
+                    <Form className="Guestbook__form" title="Guestbook Form" submitForm={this.submitForm} />
+                    {this.state.entries.length > 0 ? (
+                        <div className="Guestbook__entries">
+                            <header>
+                                <h3>Guestbook Entries</h3>
+                            </header>
+                            <section>
+                                {this.state.entries.map((entry, i) => {
+                                    return (
+                                        <article key={`entry-${i}`} className="Guestbook__entry">
+                                            {Object.keys(entry).map(key => {
+                                                return <p key={`entry-${i}-${key}`}>{entry[key]}</p>;
+                                            })}
+                                        </article>
+                                    );
+                                })}
+                            </section>
+                        </div>
+                    ) : (
+                        <div className="Guestbook__entries Guestbook__entries--empty">
+                            <p>No entries yet</p>
+                        </div>
+                    )}
                 </section>
             </div>
         );
