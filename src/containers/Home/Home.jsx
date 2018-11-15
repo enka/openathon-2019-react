@@ -3,11 +3,6 @@ import { Fetch } from '../../services/api';
 import { Info, Notification, Loader, ListBasic } from '../../components';
 import './Home.css';
 
-const FETCH_OPTIONS = {
-    method: 'GET',
-    headers: {}
-};
-
 class Home extends React.Component {
     render() {
         return (

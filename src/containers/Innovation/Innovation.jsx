@@ -4,11 +4,6 @@ import { ListBasic, ListItemDetail, Loader, Notification } from '../../component
 import { Fetch } from '../../services/api';
 import './Innovation.css';
 
-const FETCH_OPTIONS = {
-    method: 'GET',
-    headers: {}
-};
-
 class Innovation extends React.Component {
     render() {
         const match = this.props.match;
