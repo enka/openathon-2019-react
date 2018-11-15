@@ -1,0 +1,20 @@
+@import 'assets/styles/common/variables';
+
+.Guestbook {
+    .Guestbook__header {
+        text-align: left;
+    }
+
+    .Guestbook__content {
+        display: flex;
+        text-align: left;
+
+        .Guestbook__form {
+            flex-basis: 50%;
+            max-width: 50%;
+            border: 1px solid $border-color;
+            padding: $space-m;
+            background-color: rgba($light-gray-alt, 0.5);
+        }
+    }
+}
