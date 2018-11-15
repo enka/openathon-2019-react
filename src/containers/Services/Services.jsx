@@ -16,7 +16,11 @@ class Services extends React.Component {
                     <Get url="services" fetchAfterMount>
                         {({ data, loading, error }) => {
                             if (error) {
-                                return <Notification type="error" message={error.message} />;
+                                return (
+                                    <Notification type="error"
+                                        message= {error.message}
+                                    />
+                                );
                             }
                             if (loading) {
                                 return <Loader />;
@@ -25,46 +29,35 @@ class Services extends React.Component {
                                 return (
                                     <section className="Services__content">
                                         <div className="Services__list">
-                                            <ListBasic
-                                                data={data}
+                                            <ListBasic data={data}
                                                 fields={['image', 'internal_link']}
                                                 url={`${match.url}/`}
                                             />
                                         </div>
                                         <Switch>
-                                            <Route
-                                                exact
-                                                path={`${match.url}`}
-                                                render={() => {
-                                                    return (
-                                                        <div className="Services__detail Services__detail--empty">
-                                                            <p>Select a Service from the list</p>
-                                                        </div>
-                                                    );
-                                                }}
-                                            />
-                                            <Route
-                                                path={`${match.url}/:id`}
-                                                render={props => {
-                                                    const itemData = data.filter(
-                                                        item => item.id.toString() === props.match.params.id
-                                                    );
-                                                    return (
-                                                        <div className="Services__detail">
-                                                            {itemData.length ? (
-                                                                <ListItemDetail
-                                                                    data={itemData[0]}
-                                                                    fields={['image', 'detail', 'external_link']}
-                                                                />
-                                                            ) : (
-                                                                <div className="Services__detail Services__detail--empty">
-                                                                    <p>The Service does not exist</p>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    );
-                                                }}
-                                            />
+                                            <Route exact path={`${match.url}`} render={() => {
+                                                return (
+                                                    <div className="Services__detail Services__detail--empty">
+                                                        <p>Select a Service from the list</p>
+                                                    </div>
+                                                );
+                                            }} />
+                                            <Route path={`${match.url}/:id`} render={(props) => {
+                                                const itemData = data.filter(item => item.id.toString() === props.match.params.id)
+                                                return (
+                                                    <div className="Services__detail">
+                                                        {itemData.length ?
+                                                            <ListItemDetail data={itemData[0]}
+                                                                fields={['image', 'detail', 'external_link']}
+                                                            />
+                                                            :
+                                                            <div className="Services__detail Services__detail--empty">
+                                                                <p>The Service does not exist</p>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                );
+                                            }} />
                                         </Switch>
                                     </section>
                                 );

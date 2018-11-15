@@ -16,7 +16,11 @@ class Innovation extends React.Component {
                     <Get url="innovation" fetchAfterMount>
                         {({ data, loading, error }) => {
                             if (error) {
-                                return <Notification type="error" message={error.message} />;
+                                return (
+                                    <Notification type="error"
+                                        message= {error.message}
+                                    />
+                                );
                             }
                             if (loading) {
                                 return <Loader />;
@@ -25,52 +29,36 @@ class Innovation extends React.Component {
                                 return (
                                     <section className="Innovation__content">
                                         <div className="Innovation__list">
-                                            <ListBasic
-                                                data={data}
+                                            <ListBasic data={data}
                                                 fields={['image', 'internal_link']}
                                                 layout="grid"
                                                 url={`${match.url}/`}
                                             />
                                         </div>
                                         <Switch>
-                                            <Route
-                                                exact
-                                                path={`${match.url}`}
-                                                render={() => {
-                                                    return (
-                                                        <div className="Innovation__detail Innovation__detail--empty">
-                                                            <p>Select an Innovation from the list</p>
-                                                        </div>
-                                                    );
-                                                }}
-                                            />
-                                            <Route
-                                                path={`${match.url}/:id`}
-                                                render={props => {
-                                                    const itemData = data.filter(
-                                                        item => item.id.toString() === props.match.params.id
-                                                    );
-                                                    return (
-                                                        <div className="Innovation__detail">
-                                                            {itemData.length ? (
-                                                                <ListItemDetail
-                                                                    data={itemData[0]}
-                                                                    fields={[
-                                                                        'image_alt',
-                                                                        'name',
-                                                                        'description',
-                                                                        'external_link'
-                                                                    ]}
-                                                                />
-                                                            ) : (
-                                                                <div className="Innovation__detail Innovation__detail--empty">
-                                                                    <p>The Innovation does not exist</p>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    );
-                                                }}
-                                            />
+                                            <Route exact path={`${match.url}`} render={() => {
+                                                return (
+                                                    <div className="Innovation__detail Innovation__detail--empty">
+                                                        <p>Select an Innovation from the list</p>
+                                                    </div>
+                                                );
+                                            }} />
+                                            <Route path={`${match.url}/:id`} render={(props) => {
+                                                const itemData = data.filter(item => item.id.toString() === props.match.params.id)
+                                                return (
+                                                    <div className="Innovation__detail">
+                                                        {itemData.length ?
+                                                            <ListItemDetail data={itemData[0]}
+                                                                fields={['image_alt', 'name', 'description', 'external_link']}
+                                                            />
+                                                            :
+                                                            <div className="Innovation__detail Innovation__detail--empty">
+                                                                <p>The Innovation does not exist</p>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                );
+                                            }} />
                                         </Switch>
                                     </section>
                                 );
